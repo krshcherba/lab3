@@ -1,10 +1,6 @@
-import java.util.Scanner;
-
 public class App {
     public static void main(String[] args) throws Exception {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Демонстрация работы с классом Point");
+        System.out.println("Работа с классом Point");
         // Задание 1
         Point p1 = new Point(3, 5);
         Point p2 = new Point(25, 6);
@@ -61,7 +57,7 @@ public class App {
 
         Student petya = new Student("Петя", vasyaMarks); // та же ссылка
 
-        //petya.getMarks()[0] = 5;
+        petya.getMarks()[0] = 5;
         //vasyaMarks[0] = 5;
 
         System.out.println("\nПосле изменения первой оценки у Пети (через общий массив):");
@@ -70,7 +66,7 @@ public class App {
         System.out.println("Оценки изменились у обоих, потому что массив общий.");
 
         int[] andreyMarks = Student.copyMarks(new int[]{3, 4, 5}); // исходные оценки Васи до изменения
-        // Но Вася уже изменён... поэтому сохраним исходные отдельно
+
         int[] originalVasya = {3, 4, 5};
         vasya = new Student("Вася", originalVasya);
         petya = new Student("Петя", originalVasya);
@@ -80,16 +76,14 @@ public class App {
         originalVasya = new int[]{3, 4, 5};
         vasya = new Student("Вася", originalVasya);
         petya = new Student("Петя", vasya.getMarks());
-        petya.getMarks()[0] = 5;
 
         Student andrey = new Student("Андрей", Student.copyMarks(originalVasya));
+        petya.getMarks()[0] = 5;
 
         System.out.println("\nФинальный результат:");
         System.out.println(vasya);
         System.out.println(petya);
         System.out.println(andrey);
         System.out.println("У Андрея оценки не изменились, потому что массив скопирован.");
-
-        scanner.close();
     }
 }
