@@ -1,6 +1,6 @@
 package ru.ablaeva.arithmetic;
 
-class CalculateSum {
+public class CalculateSum {
     public double findSum (double ... values) {
         if (values == null || values.length == 0) {
             throw new IllegalArgumentException("Количество чисел должно быть больше 0, сударь.");

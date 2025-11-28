@@ -26,17 +26,17 @@ public class ImmutableListofValues {
         int size = this.getLength();
         
         if (n >= size || n < 0) {
-            throw new ArrayIndexOutOfBoundsException("N не входит в допустимый диапазон-с. Попробуйте снова-с!")
+            throw new ArrayIndexOutOfBoundsException("N не входит в допустимый диапазон-с. Попробуйте снова-с!");
         }
 
         return arr[n];
     }
 
-    public int setValueInN (int n, int x) {
+    public void setValueInN (int n, int x) {
         int size = this.getLength();
 
         if (n >= size || n < 0) {
-            throw new ArrayIndexOutOfBoundsException("N не входит в допустимый диапазон-с. Попробуйте снова-с!")
+            throw new ArrayIndexOutOfBoundsException("N не входит в допустимый диапазон-с. Попробуйте снова-с!");
         }
 
         arr[n] = x;

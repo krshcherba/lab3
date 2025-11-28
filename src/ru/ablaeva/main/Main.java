@@ -1,94 +1,282 @@
 package ru.ablaeva.main;
+
 import ru.ablaeva.geometry.*;
 import ru.ablaeva.arithmetic.*;
 import ru.ablaeva.list.*;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
-        System.out.println("Работа с классом Point");
-        // Задание 1
-        Point p1 = new Point(3, 5);
-        Point p2 = new Point(25, 6);
-        Point p3 = new Point(7, 8);
-        System.out.println(p1);
-        System.out.println(p2);
-        System.out.println(p3);
+    private static Scanner scanner = new Scanner(System.in);
 
-        System.out.println("\nРабота с классом Line");
-        // Линия 1: {1;3} -> {23;8}
-        Point start1 = new Point(1, 3);
-        Point end1 = new Point(23, 8);
-        Line line1 = new Line(start1, end1);
+    public static void main(String[] args) {
+        System.out.println("=== Лабораторная работа №3 ===");
+        System.out.println("Аблаева Карина ИТ-3,4-2024");
+        
+        boolean exit = false;
+        while (!exit) {
+            printMenu();
+            int choice = readInt("Выберите задание: ");
+            
+            switch (choice) {
+            case 1:
+                demonstrateTask1();
+                break;
+            case 2:
+                demonstrateTask2();
+                break;
+            case 3: 
+                demonstrateTask3();
+                break;
+            // case 4:
+            //     demonstrateTask4();
+            //     break;
+            case 5:
+                demonstrateTask5();
+                break;
+            case 6:
+                demonstrateTask6();
+                break;
+            case 7:
+                demonstrateTask7();
+                break;
+            case 0:
+                exit = true;
+                break;
+            default:
+                System.out.println("Неверный выбор-с! Попробуйте снова-с.");
+                break;
+        }
+        }
+        
+        scanner.close();
+        System.out.println("Программа завершена. До свидания!");
+    }
 
-        // Линия 2: горизонтальная на y=10, от x=5 до x=25
-        Point start2 = new Point(5, 10);
-        Point end2 = new Point(25, 10);
-        Line line2 = new Line(start2, end2);
+    private static void printMenu() {
+        System.out.println("\n=== Главное меню ===");
+        System.out.println("1 - Задание 1: Линия и Квадрат");
+        System.out.println("2 - Задание 2: Неизменяемый массив");
+        System.out.println("3 - Задание 3: Трехмерная точка");
+        System.out.println("4 - Задание 4: Точки с характеристиками");
+        System.out.println("5 - Задание 5: Сложение чисел");
+        System.out.println("6 - Задание 6: Сравнение линий");
+        System.out.println("7 - Задание 7: Клонирование линий");
+        System.out.println("8 - Задание 8: Возведение в степень");
+        System.out.println("0 - Выход");
+    }
 
-        // Линия 3: начало = начало line1, конец = конец line2
-        Line line3 = new Line(line1.getStart(), line2.getEnd());
+        // Задание 1: Линия и Квадрат
+    private static void demonstrateTask1() {
+        System.out.println("\n=== Задание 1: Линия и Квадрат ===");
+        
+        // Демонстрация Линии
+        System.out.println("\n--- Линия ---");
+        Point p1 = new Point(readInt("Введите x1: "), readInt("Введите y1: "));
+        Point p2 = new Point(readInt("Введите x2: "), readInt("Введите y2: "));
+        
+        Line line = new Line(p1, p2);
+        System.out.println("Создана: " + line);
+        System.out.println("Длина линии: " + line.getLength());
+        
+        // Изменение координат
+        Point newStart = new Point(readInt("Введите новый x начала: "), readInt("Введите новый y начала: "));
+        line.setStart(newStart);
+        System.out.println("После изменения начала: " + line);
+        
+        // Демонстрация Квадрата
+        System.out.println("\n--- Квадрат ---");
+        Point squarePoint = new Point(readInt("Введите x верхнего левого угла: "), readInt("Введите y верхнего левого угла: "));
+        int side = readInt("Введите длину стороны: ");
+        
+        Square square = new Square(squarePoint, side);
+        System.out.println("Создан: " + square);
+    }
 
-        System.out.println("Исходные линии:");
-        System.out.println(line1);
-        System.out.println(line2);
-        System.out.println(line3);
+    // Задание 2: Неизменяемый массив
+    private static void demonstrateTask2() {
+        System.out.println("\n=== Задание 2: Неизменяемый массив ===");
+        
+        System.out.println("Создание массива через фабричный метод:");
+        ImmutableListofValues list1 = ImmutableListofValues.of(1, 2, 3, 4, 5);
+        System.out.println("list1: " + list1);
+        
+        System.out.println("Создание копии массива:");
+        ImmutableListofValues list2 = new ImmutableListofValues(list1);
+        System.out.println("list2: " + list2);
+        
+        System.out.println("Пустой массив:");
+        ImmutableListofValues emptyList = ImmutableListofValues.of();
+        System.out.println("emptyList: " + emptyList);
+        System.out.println("Пуст ли массив? " + emptyList.isNull());
+        
+        // Получение значения по индексу
+        int index = readInt("Введите индекс для получения значения (0-" + (list1.getLength()-1) + "): ");
+        try {
+            int value = list1.getValueInN(index);
+            System.out.println("Значение в позиции " + index + ": " + value);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+        
+        System.out.println("Размер list1: " + list1.getLength());
+    }
 
-        // Пункт 4: изменить line1 и line2 так, чтобы line3 изменилась
-        System.out.println("\nИзменяем координаты точек (не заменяя объекты)...");
-        line1.getStart().setX(100);
-        line1.getStart().setY(200);
-        line2.getEnd().setX(300);
-        line2.getEnd().setY(400);
+    // Задание 3: Трехмерная точка
+    private static void demonstrateTask3() {
+        System.out.println("\n=== Задание 3: Трехмерная точка ===");
+        
+        int x = readInt("Введите x: ");
+        int y = readInt("Введите y: ");
+        int z = readInt("Введите z: ");
+        
+        Point3D point3D = new Point3D(x, y, z);
+        System.out.println("Создана: " + point3D);
+        System.out.println("Координаты: x=" + point3D.getX() + ", y=" + point3D.getY() + ", z=" + point3D.getZ());
+        
+        // Изменение координаты Z
+        int newZ = readInt("Введите новое значение z: ");
+        point3D.setZ(newZ);
+        System.out.println("После изменения z: " + point3D);
+    }
 
-        System.out.println("После изменения координат:");
-        System.out.println(line1);
-        System.out.println(line2);
-        System.out.println("Линия 3 (должна измениться): " + line3);
+    // Задание 4: Точки с характеристиками
+    // private static void demonstrateTask4() {
+    //     System.out.println("\n=== Задание 4: Точки с характеристиками ===");
+        
+    //     System.out.println("Создание точки с одной координатой:");
+    //     PointOther point1 = new PointOther(
+    //         readInt("Введите x: "),
+    //         readString("Введите цвет: "),
+    //         readString("Введите время: ")
+    //     );
+        
+    //     System.out.println("Создание точки с двумя координатами:");
+    //     PointOther point2 = new PointOther(
+    //         readInt("Введите x: "),
+    //         readInt("Введите y: "),
+    //         readString("Введите цвет: "),
+    //         readString("Введите время: ")
+    //     );
+        
+    //     System.out.println("Создание точки с тремя координатами:");
+    //     PointOther point3 = new PointOther(
+    //         readInt("Введите x: "),
+    //         readInt("Введите y: "),
+    //         readInt("Введите z: "),
+    //         readString("Введите цвет: "),
+    //         readString("Введите время: ")
+    //     );
+        
+    //     System.out.println("\nСозданные точки:");
+    //     System.out.println("Точка 1: " + point1);
+    //     System.out.println("Точка 2: " + point2);
+    //     System.out.println("Точка 3: " + point3);
+    // }
 
-        // Пункт 5: изменить line1 так, чтобы line3 НЕ изменилась
-        System.out.println("\nТеперь заменяем точку начала line1 на НОВУЮ...");
-        line1.setStart(new Point(999, 888));
-        System.out.println("Line1 после замены точки: " + line1);
-        System.out.println("Line3 (должна остаться прежней): " + line3);
+    // Задание 5: Сложение чисел
+    private static void demonstrateTask5() {
+        System.out.println("\n=== Задание 5: Сложение чисел ===");
+        
+        CalculateSum calculator = new CalculateSum();
+        
+        System.out.println("Введите количество чисел для сложения:");
+        int count = readInt("Количество: ");
+        
+        if (count <= 0) {
+            System.out.println("Количество чисел должно быть положительным!");
+            return;
+        }
+        
+        double[] numbers = new double[count];
+        for (int i = 0; i < count; i++) {
+            numbers[i] = readDouble("Введите число " + (i + 1) + ": ");
+        }
+        
+        try {
+            double sum = calculator.findSum(numbers);
+            System.out.println("Сумма чисел: " + sum);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
 
-        // Длина линии
-        Line testLine = new Line(1, 1, 10, 15);
-        System.out.println("\nДлина линии от {1;1} до {10;15}: " + testLine.getLength());
+    // Задание 6: Сравнение линий
+    private static void demonstrateTask6() {
+        System.out.println("\n=== Задание 6: Сравнение линий ===");
+        
+        System.out.println("Создание первой линии:");
+        Point p1 = new Point(readInt("Введите x1: "), readInt("Введите y1: "));
+        Point p2 = new Point(readInt("Введите x2: "), readInt("Введите y2: "));
+        Line line1 = new Line(p1, p2);
+        
+        System.out.println("Создание второй линии:");
+        Point p3 = new Point(readInt("Введите x1: "), readInt("Введите y1: "));
+        Point p4 = new Point(readInt("Введите x2: "), readInt("Введите y2: "));
+        Line line2 = new Line(p3, p4);
+        
+        System.out.println("Линия 1: " + line1);
+        System.out.println("Линия 2: " + line2);
+        System.out.println("Линии равны? " + line1.equals(line2));
+        
+        // Создание идентичной линии для демонстрации
+        Line line3 = new Line(new Point(p1.getX(), p1.getY()), new Point(p2.getX(), p2.getY()));
+        System.out.println("Линия 3 (копия линии 1): " + line3);
+        System.out.println("Линия 1 и Линия 3 равны? " + line1.equals(line3));
+    }
 
-        System.out.println("\nРабота с классом Student");
+    // Задание 7: Клонирование линий
+    private static void demonstrateTask7() {
+        System.out.println("\n=== Задание 7: Клонирование линий ===");
+        
+        Point p1 = new Point(readInt("Введите x1: "), readInt("Введите y1: "));
+        Point p2 = new Point(readInt("Введите x2: "), readInt("Введите y2: "));
+        Line originalLine = new Line(p1, p2);
+        
+        System.out.println("Оригинальная линия: " + originalLine);
+        
+        try {
+            Line clonedLine = originalLine.clone();
+            System.out.println("Клонированная линия: " + clonedLine);
+            System.out.println("Это один и тот же объект? " + (originalLine == clonedLine));
+            System.out.println("Объекты равны по содержанию? " + originalLine.equals(clonedLine));
+            
+            // Изменяем клон и проверяем, что оригинал не изменился
+            Point newPoint = new Point(100, 100);
+            clonedLine.setStart(newPoint);
+            System.out.println("После изменения клона:");
+            System.out.println("Оригинал: " + originalLine);
+            System.out.println("Клон: " + clonedLine);
+            
+        } catch (RuntimeException e) {
+            System.out.println("Ошибка при клонировании: " + e.getMessage());
+        }
+    }
 
-        int[] vasyaMarks = {3, 4, 5};
-        Student vasya = new Student("Вася", vasyaMarks);
+    // Вспомогательные методы для ввода с проверкой
+    private static int readInt(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка! Введите целое число.");
+            }
+        }
+    }
 
-        Student petya = new Student("Петя", vasyaMarks); // та же ссылка
+    private static double readDouble(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                return Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка! Введите число.");
+            }
+        }
+    }
 
-        petya.getMarks()[0] = 5;
-        //vasyaMarks[0] = 5;
-
-        System.out.println("\nПосле изменения первой оценки у Пети (через общий массив):");
-        System.out.println(vasya);
-        System.out.println(petya);
-        System.out.println("Оценки изменились у обоих, потому что массив общий.");
-
-        int[] andreyMarks = Student.copyMarks(new int[]{3, 4, 5}); // исходные оценки Васи до изменения
-
-        int[] originalVasya = {3, 4, 5};
-        vasya = new Student("Вася", originalVasya);
-        petya = new Student("Петя", originalVasya);
-        petya.getMarks()[0] = 5;
-
-        // Пересоздаём:
-        originalVasya = new int[]{3, 4, 5};
-        vasya = new Student("Вася", originalVasya);
-        petya = new Student("Петя", vasya.getMarks());
-
-        Student andrey = new Student("Андрей", Student.copyMarks(originalVasya));
-        petya.getMarks()[0] = 5;
-
-        System.out.println("\nФинальный результат:");
-        System.out.println(vasya);
-        System.out.println(petya);
-        System.out.println(andrey);
-        System.out.println("У Андрея оценки не изменились, потому что массив скопирован.");
+    private static String readString(String prompt) {
+        System.out.print(prompt);
+        return scanner.nextLine();
     }
 }
