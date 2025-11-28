@@ -1,308 +1,316 @@
-# Аблаева Карина ИТ-3,4-2024 Лабораторная №2
+# Аблаева Карина ИТ-3,4-2024 Лабораторная №3
 
 # Задание 1
-## Задача 1
-### Точка координат
-Создайте	сущность	Точка,	расположенную	на	двумерной	плоскости,	которая	описывается:
-• Координата	Х:	число
-• Координата	Y:	число
-• Может	возвращать	текстовое	представление	вида	“{X;Y}”
-Необходимо	 создать	 три	 точки	 с	 разными	 координатами	 и	 вывести	 на	 экран	 их	 текстовое	
-представление.
+## Задача 6
+### Отдельные линии
+Измените сущность Линия из задачи 1.5.3. Необходимо, чтобы Линия соответствовала 
+следующим требованиям: 
+• Две любые линии не могут ссылаться на один и тот же объект точки. 
+• У Линии можно изменить координаты начала или конца 
+• У Линии можно запросить координаты начала или конца 
+Продемонстрируйте работоспособность решения на примерах. 
 ### Алгоритм решения
-    public class Point {
-        private int x;
-        private int y;
-    
-        // создание точки
-        public Point(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-    
-        // получение координаты х
-        public int getX() {
-            return x;
-        }
-    
-        // получение координаты y
-        public int getY() {
-            return y;
-        }
-    
-        // изменение координаты x
-        public void setX(int x) {
-            this.x = x;
-        }
-    
-        // изменение координаты y
-        public void setY(int y) {
-            this.y = y;
-        }
-    
-        // вывод текствого представления сущности Точка
-        @Override
-        public String toString() {
-            return "{" + x + "," + y + "}";
-        }
-    }
-    
-    public class App {
-        public static void main(String[] args) throws Exception {
-            System.out.println("Работа с классом Point");
-            // Задание 1
-            Point p1 = new Point(3, 5);
-            Point p2 = new Point(25, 6);
-            Point p3 = new Point(7, 8);
-            System.out.println(p1);
-            System.out.println(p2);
-            System.out.println(p3);
-        }
+    public class Line {
+    	private Point A;
+    	private Point B;
+
+    	// создание линии через 2 точки
+    	public Line(Point A, Point B) {
+        	this.A = new Point(A.getX(), A.getY());
+        	this.B = new Point(B.getX(), B.getY());
+    	}
+
+    	// создание линии через 4 координаты
+    	public Line(int x1, int y1, int x2, int y2) {
+        	this(new Point(x1, y1), new Point(x2, y2));
+    	}
+
+    	// получение точек начала A и конца B линии
+    	public Point getStart() { 
+        	return A; 
+    	}
+
+    	public Point getEnd() { 
+        	return B; 
+    	} 
+
+    	// изменение координат точек
+    	public void setStart(Point start) { 
+        	this.A = start; 
+    	}
+
+    	public void setEnd(Point end) { 
+        	this.B = end; 
+    	}
+
+    	// получение длины линии
+    	public int getLength() {
+        	int dx = B.getX() - A.getX();
+        	int dy = B.getY() - B.getY();
+        	double lenght = Math.sqrt(dx * dx + dy * dy);
+        	return (int) Math.round(lenght);
+    	}
+
+    	// вывод текстового представления сущности Линия
+    	@Override
+    	public String toString() {
+        	return "Линия от " + A + " до " + B;
+    	}
+
+## Задача 12
+### Квадрат
+.Создайте сущность Квадрат. Квадрат описывается следующими характеристиками: 
+• Имеет Точку (из задачи 1.4.1) отмечающую левый верхний угол 
+• Имеет длину стороны. 
+• Создается путем указания точки левого верхнего угла и размера стороны 
+• Создается путем указания координаты xи y левого верхнего угла и размера стороны 
+• Может быть приведен к строке вида “Квадрат в точке T со стороной N”, где N – длина 
+стороны, а T – результат приведения к строке верхнего левого угла 
+• Может возвращать новую Ломаную (из задачи 1.5.7), точки которой соответствуют 
+точкам углов текущего квадрата.   
+Необходимо выполнить следующие задачи: 
+1. Создайте Квадрат в точке {5;3} со стороной 23 
+2. Присвойте в ссылку типа Ломаная результат вызова метода получения Ломаной у ранее 
+созданного квадрата 
+3. Выведите на экран общую длину полученной Ломаной 
+4. Сдвиньте последнюю Точку Ломаной в позицию {15,25} 
+5. Снова выведите на экран длину Ломаной
+### Алгоритм решения
+    public class Square {
+    	Point start_point;
+    	int side_lenght;
+
+    	public Square (Point start_point, int side_lenght) {
+        	this.start_point = start_point;
+        	this.side_lenght = side_lenght;
+    	}
+
+    	public Square (int x, int y, int side_lenght) {
+        	this.start_point = new Point(x, y);
+        	this.side_lenght = side_lenght;
+    	}
+
+    	@Override
+    	public String toString() {
+        	return "Квадрат в точке " + start_point + " со стороной " + side_lenght;
+    	}
     }
 
 # Задание 2
 ## Задача 1
-### Прямая
-Создайте сущность Линия, расположенную на двумерной плоскости, которая описывается:
-• Координата начала: Точка
-• Координата конца: Точка
-• Может возвращать текстовое представление вида “Линия от {X1;Y1} до {X2;Y2}”
-Для указания координат нужно использовать сущность Точка, разработанную в задании 1.1. Создайте
-линии со следующими характеристиками:
-1. Линия 1 с началом в т. {1;3} и концом в т.{23;8}.
-2. Линия 2, горизонтальная, на высоте 10, от точки 5 до точки 25.
-3. Линия 3, которая начинается всегда там же, где начинается линия 1, и заканчивается всегда там
-же, где заканчивается линия 2. Таким образом, если положение первой или второй линии
-меняется, то меняется и третья линия.
-4. После создания всех трех объектов измените координаты первой и второй линий, причем
-сделайте это таким образом, чтобы положение третьей линии соответствовало требованиям
-пункта 3.
-5. Измените координаты первой линии так, чтобы при этом не изменились, координаты третьей
-линии.
+### Неизменяемый массив
+Необходимо разработать сущность НеизменяемыйСписокЗначений, представляющий собой 
+обертку над массивом целых чисел, который сохранит функциональные возможности массивов, 
+но добавит некоторые дополнительные возможности. 
+Состояние сущности описывают следующие сведения:  
+• Имеет массив целых чисел. Именно он используется для хранения значений.  
+Инициализация сущности может быть выполнена следующим образом: 
+• С указанием значений в виде массива целых чисел. 
+• С указанием перечня чисел как независимых значений (через запятую) 
+• С указанием другого Списка, в этом случае копируются все значения указанного списка. 
+Поведение сущности описывают следующие действия: 
+• Получение значения из позицииN. Позиция должна попадать в диапазон от 0 до N-1, где 
+N–текущее количество значений, иначе выкинуть ошибку.  
+• Замена значения в позиции N на новое значение. Позиция должна попадать в диапазон от 
+0 до N-1, где N–текущее количество значений, иначе выкинуть ошибку. 
+• Может быть приведен к строке. Строка должна представлять собой полный перечень всех 
+хранимых чисел, причем первый символ строки это ”[“, а последний “]”. 
+• Можно проверить пуст Список или нет. Список пуст если его размер 0. 
+• Можно узнать текущий размер.  
+• Все хранящиеся значения можно запросить в виде стандартного массива. 
+Продемонстрируйте работоспособность решения на примерах.
 ### Алгоритм решения
-    public class App {
-        public static void main(String[] args) throws Exception {
-            System.out.println("\nРабота с классом Line");
-            // Линия 1: {1;3} -> {23;8}
-            Point start1 = new Point(1, 3);
-            Point end1 = new Point(23, 8);
-            Line line1 = new Line(start1, end1);
+    public class ImmutableListofValues {
+    	private int[] arr;
     
-            // Линия 2: горизонтальная на y=10, от x=5 до x=25
-            Point start2 = new Point(5, 10);
-            Point end2 = new Point(25, 10);
-            Line line2 = new Line(start2, end2);
+    	// Конструктор для массива
+     	public ImmutableListofValues(int[] arr) {
+        	this.arr = (arr == null) ? new int[0] : arr.clone();
+    	}
     
-            // Линия 3: начало = начало line1, конец = конец line2
-            Line line3 = new Line(line1.getStart(), line2.getEnd());
+    	// Фабричный метод для независимых значений
+    	public static ImmutableListofValues of(int... values) {
+        	return new ImmutableListofValues(values);
+    	}
     
-            System.out.println("Исходные линии:");
-            System.out.println(line1);
-            System.out.println(line2);
-            System.out.println(line3);
-    
-            // Пункт 4: изменить line1 и line2 так, чтобы line3 изменилась
-            System.out.println("\nИзменяем координаты точек (не заменяя объекты)...");
-            line1.getStart().setX(100);
-            line1.getStart().setY(200);
-            line2.getEnd().setX(300);
-            line2.getEnd().setY(400);
-    
-            System.out.println("После изменения координат:");
-            System.out.println(line1);
-            System.out.println(line2);
-            System.out.println("Линия 3 (должна измениться): " + line3);
-    
-            // Пункт 5: изменить line1 так, чтобы line3 НЕ изменилась
-            System.out.println("\nТеперь заменяем точку начала line1 на НОВУЮ...");
-            line1.setStart(new Point(999, 888));
-            System.out.println("Line1 после замены точки: " + line1);
-            System.out.println("Line3 (должна остаться прежней): " + line3);
+    	// Конструктор копирования
+    	public ImmutableListofValues(ImmutableListofValues other) {
+        	this.arr = (other != null && other.arr != null) ? other.arr.clone() : new int[0];
+    	}
+
+    	public int[] getArr() {
+        	return arr.clone();
+    	}
+
+    	public int getValueInN (int n) {
+        	int size = this.getLength();
+        
+        	if (n >= size || n < 0) {
+            		throw new ArrayIndexOutOfBoundsException("N не входит в допустимый диапазон-с. Попробуйте снова-с!")
+        	}
+
+        	return arr[n];
+    	}
+
+    	public int setValueInN (int n, int x) {
+        	int size = this.getLength();
+
+        	if (n >= size || n < 0) {
+            		throw new ArrayIndexOutOfBoundsException("N не входит в допустимый диапазон-с. Попробуйте снова-с!")
+        	}
+
+        	arr[n] = x;
+    	}
+
+    	public boolean isNull() {
+        	return this.getLength() == 0 ? true : false;
+    	}
+
+    	public int getLength() {
+        	return arr.length;
+    	}
+
+    	@Override
+    	public String toString () {
+        	String result = "[";
+        	int size = this.getLength();
+
+        	for (int i = 0; i < size-2; i++) {
+            		result = result + arr[i] + ",";
+        	}
+        
+        	return result + arr[size-1] + "]";
+    	}
     }
 
 # Задание 3
-## Задача 1
-### Студент
-Студент.	
-Создайте	сущность	Студент,	которая	описывается:
-• Имя:	строка
-• Оценки:	массив	целых	чисел.
-• Может	возвращать	текстовое	представление	вида	“Имя:	[оценка1,	оценка2,…,оценкаN]”
-Необходимо	выполнить	следующие	задачи:
-1. Создать	студента	Васю	с	оценками:	3,4,5.	
-2. Создать	 студента	 Петю	 и	 скопировать	 оценки	 Васи,	 присвоив	 содержимое	 поля	 с	
-оценками	Васи	полю	с	оценками	Пети.	
-3. Заменить	 первую	 оценку	 Пети	 на	 число	 5.	 Вывести	 на	 экран	 строковое	 представление	
-Васи	и	Пети.	Объяснить	результат
-4. Создать	 студента	 Андрея	 и	 скопировать	 ему	 оценки	 Васи	 так,	 чтобы	 изменение	 оценок	
-Васи	не	влияло	на	Андрея.
+## Задача 5
+### Трехмерная точка
+Создайте такой подвид сущности Точка из задачи 1.1.1, которая будет иметь не две, а три 
+координаты на плоскости: X,Y,Z. 
 ### Алгоритм решения
-    public class Student {
-        private String studentName;
-        private int[] marks;
-        private Student() {}
-    
-        // создание студента
-        public Student(String studentName, int[] marks) {
-            this();
-            this.studentName = studentName;
-            this.marks = marks;
-        }
-    
-        // получение оценок студента
-        public int[] getMarks() {
-            return marks;
-        }
-    
-        // копирование оценок студента
-        public static int[] copyMarks(int[] original) {
-            return original != null ? original.clone() : null;
-        }
-    
-        // вывод текстового представления сущности Студент
-        @Override
-        public String toString() {
-            String result = studentName + ": ";
-            for(int i = 0; i < marks.length; i++) {
-                if (i == marks.length - 1) {
-                    result = result + marks[i];
-                }
-                else {
-                    result = result + marks[i] + ", ";
-                }
-            }
-            return result;
-        }
-    }
-    
-    public class App {
-        public static void main(String[] args) throws Exception {
-            System.out.println("\nРабота с классом Student");
-    
-            int[] vasyaMarks = {3, 4, 5};
-            Student vasya = new Student("Вася", vasyaMarks);
-    
-            Student petya = new Student("Петя", vasyaMarks); // та же ссылка
-    
-            petya.getMarks()[0] = 5;
-            vasyaMarks[0] = 5;
-    
-            System.out.println("\nПосле изменения первой оценки у Пети (через общий массив):");
-            System.out.println(vasya);
-            System.out.println(petya);
-            System.out.println("Оценки изменились у обоих, потому что массив общий.");
-    
-            int[] andreyMarks = Student.copyMarks(new int[]{3, 4, 5}); // исходные оценки Васи до изменения
-            // Но Вася уже изменён... поэтому сохраним исходные отдельно
-            int[] originalVasya = {3, 4, 5};
-            vasya = new Student("Вася", originalVasya);
-            petya = new Student("Петя", originalVasya);
-            petya.getMarks()[0] = 5;
-    
-            // Пересоздаём:
-            originalVasya = new int[]{3, 4, 5};
-            vasya = new Student("Вася", originalVasya);
-            petya = new Student("Петя", vasya.getMarks());
-            petya.getMarks()[0] = 5;
-    
-            Student andrey = new Student("Андрей", Student.copyMarks(originalVasya));
-    
-            System.out.println("\nФинальный результат:");
-            System.out.println(vasya);
-            System.out.println(petya);
-            System.out.println(andrey);
-            System.out.println("У Андрея оценки не изменились, потому что массив скопирован.");
-        }
-    }
+   public class Point3D extends Point {
+    	private int z;
+
+    	public Point3D (int x, int y, int z) {
+        	super(x, y);
+        	this.z = z;
+    	}
+
+    	public int getZ () {
+        	return z;
+    	}
+
+    	public void setZ (int new_z) {
+        	this.z = new_z;
+    	}
+   }
 
 # Задание 4
-## Задача 1
-### Создаем точку
-Измените	сущность	Точка	из	задачи	1.1.	В	соответствии	с	новыми	требованиями	создать	объект	
-Точки	можно	только	путем	указания	обеих	координат:X и	Y.	
-Необходимо	выполнить	следующие	задачи:
-• Создайте	и	выведите	на	экран	точку	с	координатами	3;5
-• Создайте	и	выведите	на	экран	точку	с	координатами	25;6
-• Создайте	и	выведите	на	экран	точку	с	координатами	7;8
+## Задача 5
+### Точки
+Необходимо разработать сущности, которые позволят создавать Точки координат с разными 
+характеристиками. Например, мы можем иметь точки координат со следующими 
+характеристиками: 
+• Одна, две или три координаты в пространстве (X,Y,Z: целые числа) 
+• Цвет точки (строка) 
+• Время появления точки (строка) 
+Обратите внимание, что эти характеристики не составляют исчерпывающий список (так как в 
+будущем могут появиться новые характеристики) и могут составлять любые комбинации, 
+например:  
+• Точка в координате 3, красного цвета 
+• Точка в координате {4,2,5} в 11:00 
+• Точка в координате {7,7} в 15:35, желтого цвета 
+С целью совместимости с последующими задачами, сохраните Двухмерную и Трёхмерную точки 
+из задачи 2.3.5 без изменений. 
 ### Алгоритм решения
-См. Задание 1.1
+     public abstract class PointOther {
+    	private int x;
+    	private int y;
+    	private int z;
+    	private String color;
+    	private String start_time;
 
-## Задача 2
-### Создаем линию
-Измените	сущность	Линия	из	задачи	2.1.	Новые	требования	включают:
-• Создание	Линии	возможно	с	указанием	Точки	начала	и	Точки	конца	(Точки	из	задачи	4.1)
-• Создание	 Линии	 возможно	 с	 указанием	 координат	 начала	 и	 конца	 как	 четырех	 чисел	
-(x1,y1,x2,y2)
-Создайте	линии	со	следующими	характеристиками:
-1. Линия	1	с	началом	в	т.	{1;3} и	концом	в	{23;8}.
-2. Линия	2,	горизонтальная,	на	высоте	10,	от	точки	5	до	точки	25.
-3. Линия	 3	 которая	 начинается	 всегда	 там	 же	 где	 начинается	 линия	 1,	 и	 заканчивается	
-всегда	там	же,	где	заканчивается	линия	2.
-### Алгоритм решения
-См. Задание 2.1
+    	public PointOther (int x, String color, String start_time) {
+        	this.x = x;
+        	this.color = color;
+        	this.start_time = start_time;
+    	}
+
+    	public PointOther (int x, int y, String color, String start_time) {
+        	this.x = x;
+        	this.y = y;
+        	this.color = color;
+        	this.start_time = start_time;
+    	}
+
+    	public PointOther (int x, int y, int z, String color, String start_time) {
+        	this.x = x;
+        	this.y = y;
+        	this.z = z;
+        	this.color = color;
+        	this.start_time = start_time;
+    	}
+    }
 
 # Задание 5
-## Задача 3
-### Длина линии
-Измените	 сущность	 Линия	 из	 задачи	 4.2.	 Добавьте	 ей	 возможность	 возвращать	 по	 запросу	
-пользователя	расстояние	между	точками	начала	и	конца	(в	виде	целого	числа).	Создайте	линию	
-из	точки	{1;1}	в	точку	{10;15}	и	выведите	на	экран	её	длину.
+## Задача 1
+### Сложение
+Разработайте метод, который принимает набор числовых значенийи возвращает их сумму в 
+вещественной форме.
 ### Алгоритм решения
-    public class Line {
-        private Point A;
-        private Point B;
-    
-        // создание линии через 2 точки
-        public Line(Point A, Point B) {
-            // if (A == null || B == null) {
-            //     throw new IllegalArgumentException("Точки не могут быть null");
-            // }
-            this.A = A;
-            this.B = B;
-        }
-    
-        // создание линии через 4 координаты
-        public Line(int x1, int y1, int x2, int y2) {
-            this(new Point(x1, y1), new Point(x2, y2));
-        }
-    
-        // получение точек начала A и конца B линии
-        public Point getStart() { 
-            return A; 
-        }
-    
-        public Point getEnd() { 
-            return B; 
-        } 
-    
-        // изменение координат точек
-        public void setStart(Point start) { 
-            this.A = A; 
-        }
-    
-        public void setEnd(Point end) { 
-            this.B = B; 
-        }
-    
-        // получение длины линии
-        public int getLength() {
-            int dx = B.getX() - A.getX();
-            int dy = B.getY() - B.getY();
-            double lenght = Math.sqrt(dx ^ 2 + dy ^ 2);
-            return (int) Math.round(lenght);
-        }
-    
-        // вывод текстового представления сущности Линия
-        @Override
-        public String toString() {
-            return "Линия от " + A + " до " + B;
-        }
+    class CalculateSum {
+    	public double findSum (double ... values) {
+        	if (values == null || values.length == 0) {
+            		throw new IllegalArgumentException("Количество чисел должно быть больше 0, сударь.");
+        	}
+
+        	double result = 0;
+        	for (double num : values) {
+            		result += num;
+        	}
+
+        	return result;
+    	}
     }
-    
-    public class App {
-        public static void main(String[] args) throws Exception {
-            // Длина линии
-            Line testLine = new Line(1, 1, 10, 15);
-            System.out.println("\nДлина линии от {1;1} до {10;15}: " + testLine.getLength());
+
+# Задание 6
+## Задача 3
+### Сравнение линиий
+Измените сущность Линия из задачи 2.1.6.Переопределите метод сравнения объектов по 
+состоянию таким образом, чтобы две линии считались одинаковыми в том случае, если их начало 
+и конец расположены в одинаковых точках. 
+### Алгоритм решения
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Line other = (Line) obj;
+        return Objects.equals(A, other.A) && Objects.equals(B, other.B);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(A, B);
+    }
+
+# Задание 8
+## Задача 5
+### Сравнение линиий
+Измените сущность Линия из 2.6.3.  
+Переопределите метод клонирования, унаследованный от класса Object, таким образом, чтобы 
+при его вызове возвращался новый объект Линии, значения полей которого будут копиями 
+оригинальной Линии.
+### Алгоритм решения
+    @Override
+    public Line clone() {
+        try {
+            Line cloned_line = (Line) super.clone();
+            cloned_line.A = new Point(this.A.getX(), this.B.getY());
+            cloned_line.B = new Point(this.B.getX(), this.B.getY());
+            return cloned_line;
+        }
+        catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
         }
     }
