@@ -1,4 +1,4 @@
-package geometry;
+package ru.ablaeva.geometry;
 
 public class ImmutableListofValues {
     private int[] arr;

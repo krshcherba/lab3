@@ -1,4 +1,4 @@
-package geometry;
+package ru.ablaeva.geometry;
 
 public abstract class PointOther {
     private int x;

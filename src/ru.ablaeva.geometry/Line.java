@@ -1,4 +1,4 @@
-package geometry;
+package ru.ablaeva.geometry;
 
 import java.util.Objects;
 

@@ -1,4 +1,9 @@
-public class App {
+package ru.ablaeva.main;
+import ru.ablaeva.geometry.*;
+import ru.ablaeva.arithmetic.*;
+import ru.ablaeva.list.*;
+
+public class Main {
     public static void main(String[] args) throws Exception {
         System.out.println("Работа с классом Point");
         // Задание 1

@@ -1,4 +1,4 @@
-package geometry;
+package ru.ablaeva.arithmetic;
 
 class CalculateSum {
     public double findSum (double ... values) {

@@ -1,4 +1,4 @@
-package geometry;
+package ru.ablaeva.geometry;
 
 public class Square {
     Point start_point;
