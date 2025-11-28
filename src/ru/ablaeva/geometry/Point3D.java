@@ -15,4 +15,9 @@ public class Point3D extends Point {
     public void setZ (int new_z) {
         this.z = new_z;
     }
+
+    @Override
+    public String toString () {
+        return "{" + getX() + "," + getY() + "," + z + "}";
+    }
 }

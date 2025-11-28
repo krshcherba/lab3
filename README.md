@@ -189,22 +189,27 @@ N–текущее количество значений, иначе выкин�
 Создайте такой подвид сущности Точка из задачи 1.1.1, которая будет иметь не две, а три 
 координаты на плоскости: X,Y,Z. 
 ### Алгоритм решения
-    public class Point3D extends Point {
-    	private int z;
+	public class Point3D extends Point {
+		private int z;
 
-    	public Point3D (int x, int y, int z) {
-        	super(x, y);
-        	this.z = z;
-    	}
+		public Point3D (int x, int y, int z) {
+			super(x, y);
+			this.z = z;
+		}
 
-    	public int getZ () {
-        	return z;
-    	}
+		public int getZ () {
+			return z;
+		}
 
-    	public void setZ (int new_z) {
-        	this.z = new_z;
-    	}
-    }
+		public void setZ (int new_z) {
+			this.z = new_z;
+		}
+
+		@Override
+		public String toString () {
+			return "{" + getX() + "," + getY() + "," + z + "}";
+		}
+	}
 
 # Задание 4
 ## Задача 5
