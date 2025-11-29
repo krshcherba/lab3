@@ -29,9 +29,9 @@ public class Main {
             case 3: 
                 demonstrateTask3();
                 break;
-            // case 4:
-            //     demonstrateTask4();
-            //     break;
+            case 4:
+                demonstrateTask4();
+                break;
             case 5:
                 demonstrateTask5();
                 break;
@@ -59,7 +59,7 @@ public class Main {
         System.out.println("1 - Задание 1: Линия и Квадрат");
         System.out.println("2 - Задание 2: Неизменяемый массив");
         System.out.println("3 - Задание 3: Трехмерная точка");
-        // System.out.println("4 - Задание 4: Точки с характеристиками");
+        System.out.println("4 - Задание 4: Точки с характеристиками");
         System.out.println("5 - Задание 5: Сложение чисел");
         System.out.println("6 - Задание 6: Сравнение линий");
         System.out.println("7 - Задание 7: Клонирование линий");
@@ -151,38 +151,38 @@ public class Main {
     }
 
     // Задание 4: Точки с характеристиками
-    // private static void demonstrateTask4() {
-    //     System.out.println("\n=== Задание 4: Точки с характеристиками ===");
+    private static void demonstrateTask4() {
+        System.out.println("\n=== Задание 4: Точки с характеристиками ===");
         
-    //     System.out.println("Создание точки с одной координатой:");
-    //     PointOther point1 = new PointOther(
-    //         readInt("Введите x: "),
-    //         readString("Введите цвет: "),
-    //         readString("Введите время: ")
-    //     );
+        System.out.println("Создание точки с одной координатой:");
+        PointOther point1 = new PointOther.Point1D (
+            readInt("Введите x: "),
+            readString("Введите цвет: "),
+            readString("Введите время: ")
+        );
         
-    //     System.out.println("Создание точки с двумя координатами:");
-    //     PointOther point2 = new PointOther(
-    //         readInt("Введите x: "),
-    //         readInt("Введите y: "),
-    //         readString("Введите цвет: "),
-    //         readString("Введите время: ")
-    //     );
+        System.out.println("Создание точки с двумя координатами:");
+        PointOther point2 = new PointOther.Point2D (
+            readInt("Введите x: "),
+            readInt("Введите y: "),
+            readString("Введите цвет: "),
+            readString("Введите время: ")
+        );
         
-    //     System.out.println("Создание точки с тремя координатами:");
-    //     PointOther point3 = new PointOther(
-    //         readInt("Введите x: "),
-    //         readInt("Введите y: "),
-    //         readInt("Введите z: "),
-    //         readString("Введите цвет: "),
-    //         readString("Введите время: ")
-    //     );
+        System.out.println("Создание точки с тремя координатами:");
+        PointOther point3 = new PointOther.Point3DWithProps (
+            readInt("Введите x: "),
+            readInt("Введите y: "),
+            readInt("Введите z: "),
+            readString("Введите цвет: "),
+            readString("Введите время: ")
+        );
         
-    //     System.out.println("\nСозданные точки:");
-    //     System.out.println("Точка 1: " + point1);
-    //     System.out.println("Точка 2: " + point2);
-    //     System.out.println("Точка 3: " + point3);
-    // }
+        System.out.println("\nСозданные точки:");
+        System.out.println("Точка 1: " + point1);
+        System.out.println("Точка 2: " + point2);
+        System.out.println("Точка 3: " + point3);
+    }
 
     // Задание 5: Сложение чисел
     private static void demonstrateTask5() {
