@@ -213,6 +213,7 @@ public class Main {
                         double den = Double.parseDouble(parts[1]);
                         numbers[i] = num / den; // 0.6
                     }
+                    break;
             }
         }
         
