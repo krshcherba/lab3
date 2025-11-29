@@ -9,7 +9,7 @@ public class ImmutableListofValues {
     }
     
     // Фабричный метод для независимых значений
-    public static ImmutableListofValues of(int... values) {
+    public static ImmutableListofValues of (int... values) {
         return new ImmutableListofValues(values);
     }
     

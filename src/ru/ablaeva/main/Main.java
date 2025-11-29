@@ -3,6 +3,8 @@ package ru.ablaeva.main;
 import ru.ablaeva.geometry.*;
 import ru.ablaeva.arithmetic.*;
 import ru.ablaeva.list.*;
+import ru.ablaeva.list.ImmutableListofValues;
+
 import java.util.Scanner;
 
 public class Main {
@@ -49,7 +51,7 @@ public class Main {
         }
         
         scanner.close();
-        System.out.println("Программа завершена. До свидания!");
+        System.out.println("Программа завершена-c. До свидания-c!");
     }
 
     private static void printMenu() {
@@ -57,11 +59,11 @@ public class Main {
         System.out.println("1 - Задание 1: Линия и Квадрат");
         System.out.println("2 - Задание 2: Неизменяемый массив");
         System.out.println("3 - Задание 3: Трехмерная точка");
-        System.out.println("4 - Задание 4: Точки с характеристиками");
+        // System.out.println("4 - Задание 4: Точки с характеристиками");
         System.out.println("5 - Задание 5: Сложение чисел");
         System.out.println("6 - Задание 6: Сравнение линий");
         System.out.println("7 - Задание 7: Клонирование линий");
-        System.out.println("8 - Задание 8: Возведение в степень");
+        // System.out.println("8 - Задание 8: Возведение в степень");
         System.out.println("0 - Выход");
     }
 
@@ -104,9 +106,8 @@ public class Main {
         ImmutableListofValues list2 = new ImmutableListofValues(list1);
         System.out.println("list2: " + list2);
         
-        System.out.println("Пустой массив:");
+        System.out.println("Пустой массив: []");
         ImmutableListofValues emptyList = ImmutableListofValues.of();
-        System.out.println("emptyList: " + emptyList);
         System.out.println("Пуст ли массив? " + emptyList.isNull());
         
         // Получение значения по индексу
@@ -114,6 +115,16 @@ public class Main {
         try {
             int value = list1.getValueInN(index);
             System.out.println("Значение в позиции " + index + ": " + value);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+
+        // Замена значения по индексу
+        index = readInt("Введите индекс для замены значения (0-" + (list1.getLength()-1) + "): ");
+        int value = readInt("Введите значение: ");
+        try {
+            list1.setValueInN(index, value);
+            System.out.println("Значение в позиции " + index + ": " + list1.getArr()[index]);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
@@ -189,7 +200,20 @@ public class Main {
         
         double[] numbers = new double[count];
         for (int i = 0; i < count; i++) {
-            numbers[i] = readDouble("Введите число " + (i + 1) + ": ");
+            int choice = readInt("В каком ввиде будет вводиться значение? 1 - вещественное число, 2 - обыкновенная дробь: ");
+            switch (choice) {
+                case 1:
+                    numbers[i] = readDouble("Введите число " + (i + 1) + ": ");
+                    break;
+                case 2: 
+                    String input = readString("Введите дробь в формате n/m: ");
+                    String[] parts = input.split("/");
+                    if (parts.length == 2) {
+                        double num = Double.parseDouble(parts[0]);
+                        double den = Double.parseDouble(parts[1]);
+                        numbers[i] = num / den; // 0.6
+                    }
+            }
         }
         
         try {

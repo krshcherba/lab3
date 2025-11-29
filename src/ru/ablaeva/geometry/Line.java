@@ -2,7 +2,7 @@ package ru.ablaeva.geometry;
 
 import java.util.Objects;
 
-public class Line {
+public class Line implements Cloneable {
     private Point A;
     private Point B;
 
@@ -54,19 +54,19 @@ public class Line {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Line other = (Line) obj;
-        return Objects.equals(A, other.A) && Objects.equals(B, other.B);
+        return this.A.getX() == other.A.getX() && this.A.getY() == other.A.getY() && this.B.getX() == other.B.getX() && this.B.getY() == other.B.getY();
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(A, B);
     }
-
+    
     @Override
     public Line clone() {
         try {
             Line cloned_line = (Line) super.clone();
-            cloned_line.A = new Point(this.A.getX(), this.B.getY());
+            cloned_line.A = new Point(this.A.getX(), this.A.getY());
             cloned_line.B = new Point(this.B.getX(), this.B.getY());
             return cloned_line;
         }
